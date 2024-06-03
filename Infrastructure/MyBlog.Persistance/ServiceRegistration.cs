@@ -14,7 +14,14 @@ namespace MyBlog.Persistance
         {
             serviceCollection.AddDbContext<MyBlogDbContext>(opts => opts.UseSqlServer(Configuration.ConnectionString));
 
-            serviceCollection.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<MyBlogDbContext>();
+            serviceCollection.AddIdentity<AppUser, AppRole>(opts =>
+            {
+                opts.Password.RequireNonAlphanumeric = false;
+                opts.Password.RequireLowercase = false;
+                opts.Password.RequireUppercase = false;
+                opts.Password.RequireDigit = false;
+                opts.Password.RequiredLength = 3;
+            }).AddEntityFrameworkStores<MyBlogDbContext>();
 
             serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
 
