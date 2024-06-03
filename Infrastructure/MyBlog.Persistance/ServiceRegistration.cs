@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using MyBlog.Application.Abstractions;
 using MyBlog.Application.Repositories;
-using MyBlog.Persistance.Concretes;
 using MyBlog.Persistance.Contexts;
 using MyBlog.Persistance.Repositories;
 
@@ -22,8 +20,6 @@ namespace MyBlog.Persistance
 
             serviceCollection.AddScoped<IPostReadRepository, PostReadRepository>();
             serviceCollection.AddScoped<IPostWriteRepository, PostWriteRepository>();
-
-            serviceCollection.AddTransient<IPostService, PostService>();
         }
     }
 }
