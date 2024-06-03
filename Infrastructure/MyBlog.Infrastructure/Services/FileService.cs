@@ -32,11 +32,6 @@ namespace MyBlog.Infrastructure.Services
             }
         }
 
-        public Task<string> RenameFileAsync(string fileName)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task UploadAsync(string filePath, IFormFileCollection files)
         {
             var uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, filePath);
@@ -45,13 +40,9 @@ namespace MyBlog.Infrastructure.Services
 
             foreach (var file in files)
             {
-                var fileNewName = await RenameFileAsync(file.FileName);
-
-                await CopyFileAsync($"{uploadPath}\\{fileNewName}", file);
+                await CopyFileAsync($"{uploadPath}\\{Guid.NewGuid()}{Path.GetExtension(file.FileName)}", file);
 
             }
-
-            throw new NotImplementedException();
         }
     }
 }
