@@ -12,8 +12,9 @@ namespace MyBlog.Infrastructure
             serviceCollection.AddScoped<IStorageService, StorageService>();
         }
 
-        public static void AddStorage<T>(this IServiceCollection serviceCollection) where T : Storage, IStorage
+        public static void AddStorage<T>(this IServiceCollection serviceCollection) where T : class, IStorage
         {
             serviceCollection.AddScoped<IStorage, T>();
         }
+    }
 }

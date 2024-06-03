@@ -4,7 +4,7 @@ using MyBlog.Application.Abstractions.Storage.Local;
 
 namespace MyBlog.Infrastructure.Services.Storage.Local
 {
-    public class LocalStorage : Storage, ILocalStorage
+    public class LocalStorage : ILocalStorage
     {
 
         private const int BUFFER_SIZE = 1024 * 1024;
