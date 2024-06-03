@@ -2,7 +2,7 @@
 
 namespace MyBlog.Application.Repositories
 {
-    public interface IBlogReadRepository : IReadRepository<Blog>
+    public interface IPostRepository : IRepository<Post>
     {
     }
 }

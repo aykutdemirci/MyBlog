@@ -1,27 +1,43 @@
 ﻿using MyBlog.Application.Abstractions.UnitOfWork;
 using MyBlog.Application.Repositories;
-using MyBlog.Domain.Entities.Common;
+using MyBlog.Persistance.Contexts;
 
 namespace MyBlog.Persistance
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly IRepository<BaseEntity> _repository;
+        private readonly MyBlogDbContext _dbContext;
 
-        public UnitOfWork(IRepository<BaseEntity> repository)
+        private readonly IPostRepository _postRepository;
+        private readonly IBlogRepository _blogRepository;
+        private readonly IAuthorRepository _authorRepository;
+
+        public UnitOfWork(MyBlogDbContext dbContext,
+                          IPostRepository postRepository,
+                          IBlogRepository blogRepository,
+                          IAuthorRepository authorRepository)
         {
-            _repository = repository;
+            _dbContext = dbContext;
+            _postRepository = postRepository;
+            _blogRepository = blogRepository;
+            _authorRepository = authorRepository;
         }
 
-        public Task<int> SaveChangesAsync()
+        public async Task Save()
         {
-            throw new NotImplementedException();
-        }
+            using var transaction = await _dbContext.Database.BeginTransactionAsync();
 
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                await _dbContext.SaveChangesAsync();
 
+                transaction.Commit();
+            }
+            catch
+            {
+                transaction.Rollback();
+                throw;
+            }
+        }
     }
 }

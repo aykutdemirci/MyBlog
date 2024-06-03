@@ -4,9 +4,9 @@ using MyBlog.Persistance.Contexts;
 
 namespace MyBlog.Persistance.Repositories
 {
-    public sealed class PostWriteRepository : WriteRepository<Post>, IPostWriteRepository
+    public sealed class BlogRepository : Repository<Blog>, IBlogRepository
     {
-        public PostWriteRepository(MyBlogDbContext dbContext) : base(dbContext)
+        public BlogRepository(MyBlogDbContext dbContext) : base(dbContext)
         {
         }
     }

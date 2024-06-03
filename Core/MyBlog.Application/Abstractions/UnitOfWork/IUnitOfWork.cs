@@ -1,10 +1,7 @@
-﻿using MyBlog.Application.Repositories;
-using MyBlog.Domain.Entities.Common;
-
-namespace MyBlog.Application.Abstractions.UnitOfWork
+﻿namespace MyBlog.Application.Abstractions.UnitOfWork
 {
-    public interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork
     {
-        Task<int> SaveChangesAsync();
+        Task Save();
     }
 }

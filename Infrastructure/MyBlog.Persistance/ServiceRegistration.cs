@@ -15,14 +15,11 @@ namespace MyBlog.Persistance
 
             serviceCollection.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<MyBlogDbContext>();
 
-            serviceCollection.AddScoped<IAuthorReadRepository, AuthorReadRepository>();
-            serviceCollection.AddScoped<IAuthorWriteRepository, AuthorWriteRepository>();
+            serviceCollection.AddScoped<IAuthorRepository, AuthorRepository>();
 
-            serviceCollection.AddScoped<IBlogReadRepository, BlogReadRepository>();
-            serviceCollection.AddScoped<IBlogWriteRepository, BlogWriteRepository>();
+            serviceCollection.AddScoped<IBlogRepository, BlogRepository>();
 
-            serviceCollection.AddScoped<IPostReadRepository, PostReadRepository>();
-            serviceCollection.AddScoped<IPostWriteRepository, PostWriteRepository>();
+            serviceCollection.AddScoped<IPostRepository, PostRepository>();
         }
     }
 }

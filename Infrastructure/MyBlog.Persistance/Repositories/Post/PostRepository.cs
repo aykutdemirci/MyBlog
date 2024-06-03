@@ -4,10 +4,11 @@ using MyBlog.Persistance.Contexts;
 
 namespace MyBlog.Persistance.Repositories
 {
-    public sealed class AuthorWriteRepository : WriteRepository<Author>, IAuthorWriteRepository
+    public sealed class PostRepository : Repository<Post>, IPostRepository
     {
-        public AuthorWriteRepository(MyBlogDbContext dbContext) : base(dbContext)
+        public PostRepository(MyBlogDbContext dbContext) : base(dbContext)
         {
+
         }
     }
 }
