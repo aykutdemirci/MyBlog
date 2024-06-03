@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using MyBlog.Application.Abstractions.UnitOfWork;
 using MyBlog.Application.Repositories;
 using MyBlog.Domain.Entities.Identity;
 using MyBlog.Persistance.Contexts;
@@ -14,6 +15,8 @@ namespace MyBlog.Persistance
             serviceCollection.AddDbContext<MyBlogDbContext>(opts => opts.UseSqlServer(Configuration.ConnectionString));
 
             serviceCollection.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<MyBlogDbContext>();
+
+            serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
 
             serviceCollection.AddScoped<IAuthorRepository, AuthorRepository>();
 
