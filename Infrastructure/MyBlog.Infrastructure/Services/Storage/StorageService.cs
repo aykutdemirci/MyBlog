@@ -14,24 +14,24 @@ namespace MyBlog.Infrastructure.Services.Storage
 
         public string StorageName => _storage.GetType().Name;
 
-        public Task DeleteAsync(string pathOrContainerName, string fileName)
+        public async Task DeleteAsync(string pathOrContainerName, string fileName)
         {
-            throw new NotImplementedException();
+            await _storage.DeleteAsync(pathOrContainerName, fileName);
         }
 
         public List<string> GetFiles(string pathOrContainerName)
         {
-            throw new NotImplementedException();
+            return _storage.GetFiles(pathOrContainerName);
         }
 
         public bool HasFile(string pathOrContainerName, string fileName)
         {
-            throw new NotImplementedException();
+            return _storage.HasFile(pathOrContainerName, fileName);
         }
 
         public Task<List<(string fileName, string pathOrContainerName)>> UploadAsync(string pathOrContainerName, IFormFileCollection files)
         {
-            throw new NotImplementedException();
+            return _storage.UploadAsync(pathOrContainerName, files);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using MyBlog.Application.Services;
-using MyBlog.Infrastructure.Services;
+using MyBlog.Application.Abstractions.Storage;
+using MyBlog.Infrastructure.Services.Storage;
 
 namespace MyBlog.Infrastructure
 {
@@ -8,7 +8,12 @@ namespace MyBlog.Infrastructure
     {
         public static void AddInfrastructureServices(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddScoped<IFileService, FileService>();
+
+            serviceCollection.AddScoped<IStorageService, StorageService>();
         }
-    }
+
+        public static void AddStorage<T>(this IServiceCollection serviceCollection) where T : Storage, IStorage
+        {
+            serviceCollection.AddScoped<IStorage, T>();
+        }
 }
