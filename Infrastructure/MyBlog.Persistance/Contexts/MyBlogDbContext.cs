@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using MyBlog.Domain.Entities;
 using MyBlog.Domain.Entities.Common;
+using MyBlog.Domain.Entities.Identity;
 
 namespace MyBlog.Persistance.Contexts
 {
-    public sealed class MyBlogDbContext : DbContext
+    public sealed class MyBlogDbContext : IdentityDbContext<AppUser, AppRole, string>
     {
         public MyBlogDbContext(DbContextOptions options) : base(options)
         {
