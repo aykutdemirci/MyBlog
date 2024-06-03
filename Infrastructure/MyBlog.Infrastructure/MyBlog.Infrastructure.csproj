@@ -10,8 +10,4 @@
     <ProjectReference Include="..\..\Core\MyBlog.Application\MyBlog.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\Storage\Azure\" />
-  </ItemGroup>
-
 </Project>
