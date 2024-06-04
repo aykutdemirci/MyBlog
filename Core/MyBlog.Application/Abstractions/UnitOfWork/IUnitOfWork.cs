@@ -1,7 +1,15 @@
-﻿namespace MyBlog.Application.Abstractions.UnitOfWork
+﻿using MyBlog.Application.Repositories;
+
+namespace MyBlog.Application.Abstractions.UnitOfWork
 {
     public interface IUnitOfWork
     {
-        Task Save();
+        IPostRepository PostRepository { get; }
+
+        IBlogRepository BlogRepository { get; }
+
+        IAuthorRepository AuthorRepository { get; }
+
+        Task<bool> SaveAsync();
     }
 }

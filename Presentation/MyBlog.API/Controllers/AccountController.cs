@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using MyBlog.Application.Abstractions.Services.AppUser;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
 using MyBlog.Application.ViewModels.AppUser;
+using System.Security.Claims;
+using MyBlog.Application.Abstractions.Services;
 
 namespace MyBlog.API.Controllers
 {
@@ -34,6 +37,14 @@ namespace MyBlog.API.Controllers
             }
 
             return Ok(response);
+        }
+
+        [HttpPost("Logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await _appUserService.LogoutAsync();
+
+            return Ok();
         }
     }
 }

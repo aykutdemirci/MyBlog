@@ -8,9 +8,11 @@ namespace MyBlog.Persistance
     {
         private readonly MyBlogDbContext _dbContext;
 
-        private readonly IPostRepository _postRepository;
-        private readonly IBlogRepository _blogRepository;
-        private readonly IAuthorRepository _authorRepository;
+        public IPostRepository PostRepository { get; }
+
+        public IBlogRepository BlogRepository { get; }
+
+        public IAuthorRepository AuthorRepository { get; }
 
         public UnitOfWork(MyBlogDbContext dbContext,
                           IPostRepository postRepository,
@@ -18,20 +20,22 @@ namespace MyBlog.Persistance
                           IAuthorRepository authorRepository)
         {
             _dbContext = dbContext;
-            _postRepository = postRepository;
-            _blogRepository = blogRepository;
-            _authorRepository = authorRepository;
+            PostRepository = postRepository;
+            BlogRepository = blogRepository;
+            AuthorRepository = authorRepository;
         }
 
-        public async Task Save()
+        public async Task<bool> SaveAsync()
         {
             using var transaction = await _dbContext.Database.BeginTransactionAsync();
 
             try
             {
-                await _dbContext.SaveChangesAsync();
+                var affectedRows = await _dbContext.SaveChangesAsync();
 
                 transaction.Commit();
+
+                return affectedRows > 0;
             }
             catch
             {

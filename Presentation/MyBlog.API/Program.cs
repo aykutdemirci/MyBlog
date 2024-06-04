@@ -1,4 +1,4 @@
-using FluentValidation;
+using FluentValidation.AspNetCore;
 using MyBlog.Application.Validators.Posts;
 using MyBlog.Infrastructure;
 using MyBlog.Infrastructure.Services.Storage.Local;
@@ -9,9 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddPersistanceSerivces();
 builder.Services.AddInfrastructureServices();
 builder.Services.AddStorage<LocalStorage>();
-
-builder.Services.AddControllers();
-builder.Services.AddValidatorsFromAssemblyContaining<CreatePostValidator>();
+builder.Services.AddControllers().AddFluentValidation(configuration => configuration.RegisterValidatorsFromAssemblyContaining<CreatePostValidator>());
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -26,6 +24,8 @@ if (app.Environment.IsDevelopment())
 app.UseStaticFiles();
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

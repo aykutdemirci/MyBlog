@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using MyBlog.Application.Abstractions.Services.AppUser;
+using MyBlog.Application.Abstractions.Services;
 using MyBlog.Application.Exceptions;
 using MyBlog.Application.ViewModels.AppUser;
 using MyBlog.Domain.Entities.Identity;
@@ -49,6 +49,11 @@ namespace MyBlog.Infrastructure.Services.AppUserService
             var signInResult = await _signInManager.CheckPasswordSignInAsync(appUser, model.Password, false);
 
             return signInResult.Succeeded;
+        }
+
+        public async Task LogoutAsync()
+        {
+            await _signInManager.SignOutAsync();
         }
     }
 }

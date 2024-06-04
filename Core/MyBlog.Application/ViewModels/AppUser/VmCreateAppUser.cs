@@ -1,6 +1,6 @@
 ﻿namespace MyBlog.Application.ViewModels.AppUser
 {
-    public class VmCreateAppUser
+    public sealed class VmCreateAppUser
     {
         public  string Name { get; set; }
         public string Email { get; set; }
