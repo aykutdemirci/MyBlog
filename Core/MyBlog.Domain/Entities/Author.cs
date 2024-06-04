@@ -6,7 +6,7 @@ namespace MyBlog.Domain.Entities
     {
         public string Name { get; set; }
 
-        public string Image { get; set; }
+        public string? Image { get; set; }
 
         public ICollection<Post> Posts { get; set; }
     }

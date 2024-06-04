@@ -1,4 +1,5 @@
-﻿using MyBlog.Application.Abstractions.Services;
+﻿using Microsoft.EntityFrameworkCore;
+using MyBlog.Application.Abstractions.Services;
 using MyBlog.Application.Abstractions.UnitOfWork;
 using MyBlog.Application.Exceptions;
 using MyBlog.Application.ViewModels.Authors;
@@ -24,6 +25,15 @@ namespace MyBlog.Persistance.Services.Author
             if (isAdded) return await _unitOfWork.SaveAsync();
 
             throw new AuthorCreateFailedException();
+        }
+
+        public async Task<List<VmListAuthor>> GetAllAsync()
+        {
+            return await _unitOfWork.AuthorRepository.GetAll(tracking: false).Select(a => new VmListAuthor
+            {
+                Image = a.Image,
+                Name = a.Name,
+            }).ToListAsync();
         }
     }
 }
