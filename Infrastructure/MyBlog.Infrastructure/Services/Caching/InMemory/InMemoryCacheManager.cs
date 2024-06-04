@@ -3,11 +3,11 @@ using MyBlog.Application.Abstractions.Caching.InMemory;
 
 namespace MyBlog.Infrastructure.Services.Caching.InMemory
 {
-    public class InMemoryCache : IInMemoryCacheManager
+    public class InMemoryCacheManager : IInMemoryCacheManager
     {
         private readonly IMemoryCache _memoryCache;
 
-        public InMemoryCache(IMemoryCache memoryCache)
+        public InMemoryCacheManager(IMemoryCache memoryCache)
         {
             _memoryCache = memoryCache;
         }

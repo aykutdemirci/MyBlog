@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using MyBlog.Application.Abstractions.Caching.InMemory;
 using MyBlog.Application.Abstractions.Storage;
 using MyBlog.Infrastructure.Enums;
+using MyBlog.Infrastructure.Services.Caching.InMemory;
 using MyBlog.Infrastructure.Services.Storage;
 
 namespace MyBlog.Infrastructure
@@ -23,6 +25,7 @@ namespace MyBlog.Infrastructure
             {
                 case CachingType.InMemory:
                     serviceCollection.AddMemoryCache();
+                    serviceCollection.AddSingleton<IInMemoryCacheManager, InMemoryCacheManager>();
                     break;
                 case CachingType.Distributed:
                     //todo redis eklenebilir
