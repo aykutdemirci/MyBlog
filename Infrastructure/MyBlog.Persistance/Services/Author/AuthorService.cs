@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using MyBlog.Application.Abstractions.Caching;
 using MyBlog.Application.Abstractions.Services;
 using MyBlog.Application.Abstractions.UnitOfWork;
 using MyBlog.Application.Exceptions;
@@ -11,11 +12,13 @@ namespace MyBlog.Persistance.Services.Author
     {
         private readonly ILogger<AuthorService> _looger;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ICacheService _cacheService;
 
-        public AuthorService(ILogger<AuthorService> logger, IUnitOfWork unitOfWork)
+        public AuthorService(ILogger<AuthorService> logger, IUnitOfWork unitOfWork, ICacheService cacheService)
         {
             _looger = logger;
             _unitOfWork = unitOfWork;
+            _cacheService = cacheService;
         }
 
         public async Task<bool> CreateAsync(VmCreateAuthor model)
@@ -36,11 +39,21 @@ namespace MyBlog.Persistance.Services.Author
 
         public async Task<List<VmListAuthor>> GetAllAsync()
         {
-            return await _unitOfWork.AuthorRepository.GetAll(tracking: false).Select(a => new VmListAuthor
+            var isExists = _cacheService.TryGetValue("all_authors_list", out List<VmListAuthor> authorsInCache);
+            if (isExists)
+            {
+                return authorsInCache;
+            }
+
+            var authorsInDb = await _unitOfWork.AuthorRepository.GetAll(tracking: false).Select(a => new VmListAuthor
             {
                 Image = a.Image,
                 Name = a.Name,
             }).ToListAsync();
+
+            _cacheService.Add("all_authors_list", authorsInDb);
+
+            return authorsInDb;
         }
     }
 }

@@ -2,6 +2,7 @@ using FluentValidation.AspNetCore;
 using MyBlog.API.Extensions;
 using MyBlog.Application.Validators.Posts;
 using MyBlog.Infrastructure;
+using MyBlog.Infrastructure.Enums;
 using MyBlog.Infrastructure.Services.Storage.Local;
 using MyBlog.Persistance;
 using Serilog;
@@ -9,6 +10,7 @@ using Serilog.Sinks.MSSqlServer;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCache(CachingType.InMemory);
 builder.Services.AddPersistanceSerivces();
 builder.Services.AddInfrastructureServices();
 builder.Services.AddStorage<LocalStorage>();
