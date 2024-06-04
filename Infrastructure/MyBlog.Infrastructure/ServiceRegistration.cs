@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using MyBlog.Application.Abstractions.Caching;
 using MyBlog.Application.Abstractions.Caching.InMemory;
 using MyBlog.Application.Abstractions.Storage;
 using MyBlog.Infrastructure.Enums;
+using MyBlog.Infrastructure.Services.Caching;
 using MyBlog.Infrastructure.Services.Caching.InMemory;
 using MyBlog.Infrastructure.Services.Storage;
 
@@ -12,6 +14,7 @@ namespace MyBlog.Infrastructure
         public static void AddInfrastructureServices(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddScoped<IStorageService, StorageService>();
+            serviceCollection.AddSingleton<ICacheService, CacheService>();
         }
 
         public static void AddStorage<T>(this IServiceCollection serviceCollection) where T : class, IStorage
