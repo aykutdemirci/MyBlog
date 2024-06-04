@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Mvc;
-using MyBlog.Application.ViewModels.AppUser;
-using System.Security.Claims;
+﻿using Microsoft.AspNetCore.Mvc;
 using MyBlog.Application.Abstractions.Services;
+using MyBlog.Application.ViewModels.AppUser;
 
 namespace MyBlog.API.Controllers
 {

@@ -1,10 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using MyBlog.Application.Abstractions.Services;
 using MyBlog.Application.Abstractions.UnitOfWork;
 using MyBlog.Application.Repositories;
 using MyBlog.Domain.Entities.Identity;
 using MyBlog.Persistance.Contexts;
 using MyBlog.Persistance.Repositories;
+using MyBlog.Persistance.Services.AppUserService;
+using MyBlog.Persistance.Services.Author;
 
 namespace MyBlog.Persistance
 {
@@ -23,13 +26,12 @@ namespace MyBlog.Persistance
                 opts.Password.RequiredLength = 3;
             }).AddEntityFrameworkStores<MyBlogDbContext>();
 
-            serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
-
             serviceCollection.AddScoped<IAuthorRepository, AuthorRepository>();
-
             serviceCollection.AddScoped<IBlogRepository, BlogRepository>();
-
             serviceCollection.AddScoped<IPostRepository, PostRepository>();
+            serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
+            serviceCollection.AddScoped<IAppUserService, AppUserService>();
+            serviceCollection.AddScoped<IAuthorService, AuthorService>();
         }
     }
 }

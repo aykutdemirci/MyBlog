@@ -3,7 +3,7 @@ using MyBlog.Application.Abstractions.UnitOfWork;
 using MyBlog.Application.Exceptions;
 using MyBlog.Application.ViewModels.Authors;
 
-namespace MyBlog.Infrastructure.Services.Author
+namespace MyBlog.Persistance.Services.Author
 {
     public class AuthorService : IAuthorService
     {

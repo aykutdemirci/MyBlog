@@ -4,7 +4,7 @@ using MyBlog.Application.Exceptions;
 using MyBlog.Application.ViewModels.AppUser;
 using MyBlog.Domain.Entities.Identity;
 
-namespace MyBlog.Infrastructure.Services.AppUserService
+namespace MyBlog.Persistance.Services.AppUserService
 {
     public class AppUserService : IAppUserService
     {
