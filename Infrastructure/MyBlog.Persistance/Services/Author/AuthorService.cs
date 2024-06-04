@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using MyBlog.Application.Abstractions.Services;
 using MyBlog.Application.Abstractions.UnitOfWork;
 using MyBlog.Application.Exceptions;
@@ -8,10 +9,12 @@ namespace MyBlog.Persistance.Services.Author
 {
     public class AuthorService : IAuthorService
     {
+        private readonly ILogger<AuthorService> _looger;
         private readonly IUnitOfWork _unitOfWork;
 
-        public AuthorService(IUnitOfWork unitOfWork)
+        public AuthorService(ILogger<AuthorService> logger, IUnitOfWork unitOfWork)
         {
+            _looger = logger;
             _unitOfWork = unitOfWork;
         }
 
@@ -22,7 +25,11 @@ namespace MyBlog.Persistance.Services.Author
                 Name = model.Name,
             });
 
-            if (isAdded) return await _unitOfWork.SaveAsync();
+            if (isAdded)
+            {
+                _looger.LogInformation("Author Created Succesfully");
+                return await _unitOfWork.SaveAsync();
+            }
 
             throw new AuthorCreateFailedException();
         }

@@ -1,4 +1,5 @@
 using FluentValidation.AspNetCore;
+using MyBlog.API.Extensions;
 using MyBlog.Application.Validators.Posts;
 using MyBlog.Infrastructure;
 using MyBlog.Infrastructure.Services.Storage.Local;
@@ -27,6 +28,8 @@ var logger = new LoggerConfiguration()
 builder.Host.UseSerilog(logger);
 
 var app = builder.Build();
+
+app.AddExceptionHandler(app.Services.GetRequiredService<ILogger<Program>>());
 
 if (app.Environment.IsDevelopment())
 {
