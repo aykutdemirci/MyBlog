@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MyBlog.Application.Abstractions.Caching;
 using MyBlog.Application.Abstractions.Storage;
+using MyBlog.Infrastructure.Configurations;
 using MyBlog.Infrastructure.Enums;
+using MyBlog.Infrastructure.Services.Caching.Distributed;
 using MyBlog.Infrastructure.Services.Caching.InMemory;
 using MyBlog.Infrastructure.Services.Storage;
 
@@ -28,6 +30,11 @@ namespace MyBlog.Infrastructure
                     serviceCollection.AddScoped<ICacheService, InMemoryCacheService>();
                     break;
                 case CachingType.Distributed:
+                    serviceCollection.AddStackExchangeRedisCache(opts =>
+                    {
+                        opts.Configuration = RedisConfigs.ConnectionString;
+                    });
+                    serviceCollection.AddScoped<ICacheService, DistributedCacheService>();
                     break;
             }
         }

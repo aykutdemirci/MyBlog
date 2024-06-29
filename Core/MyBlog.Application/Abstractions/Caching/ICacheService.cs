@@ -6,6 +6,6 @@
 
         void Remove(string key);
 
-        bool TryGetValue<T>(string key, out T value);
+        bool TryGetValue<T>(string key, out T? value);
     }
 }

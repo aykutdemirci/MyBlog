@@ -39,7 +39,7 @@ namespace MyBlog.Persistance.Services.Author
 
         public async Task<List<VmListAuthor>> GetAllAsync()
         {
-            var isExists = _cacheService.TryGetValue("all_authors_list", out List<VmListAuthor> authorsInCache);
+            var isExists = _cacheService.TryGetValue("all_authors_list", out List<VmListAuthor>? authorsInCache);
             if (isExists)
             {
                 return authorsInCache;
