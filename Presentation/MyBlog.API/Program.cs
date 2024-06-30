@@ -10,6 +10,7 @@ using Serilog.Sinks.MSSqlServer;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//builder.Services.AddCache(CachingType.InMemory);
 builder.Services.AddCache(CachingType.Distributed);
 builder.Services.AddPersistanceSerivces();
 builder.Services.AddInfrastructureServices();
